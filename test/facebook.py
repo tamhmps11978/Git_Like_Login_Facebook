@@ -1,6 +1,7 @@
 import time
 
 from selenium import webdriver
+from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
@@ -28,10 +29,15 @@ time.sleep(2)
 btn_submit = driver.find_element_by_name('login')
 btn_submit.click()
 
-
-
-
-
+#
+driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+time.sleep(2)
+likes = driver.find_elements_by_xpath("//div[@class='tvfksri0 ozuftl9m']//div[@aria-label='Thích']")
+actions = ActionChains(driver)
+print(len(likes))
+for i in range(0, 6):
+    actions.move_to_element(likes[i]).perform()
+    driver.execute_script("arguments[0].click();", likes[i])
 
 
 
